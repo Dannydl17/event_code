@@ -27,7 +27,7 @@ public class EventServiceImpl implements EventService{
 
     @Override
     public Optional<Event> findEvent(Event event) {
-        Optional<Event> foundEvent = eventRepository.findById(event.getId());
+        Optional<Event> foundEvent = eventRepository.findById("");
         if (foundEvent.isPresent()) {
             return foundEvent;
         }
