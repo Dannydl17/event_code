@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -72,7 +71,7 @@ class UserServiceImplTest {
 
     private UserRegistrationRequest buildUserWithIncompleteDetails() {
         return UserRegistrationRequest.builder()
-                .email("email@gmail.com")
+                .email("alaabdulmalik03@gmail.com")
                 .name("Danny_Big_Dawg")
                 .build();
     }
