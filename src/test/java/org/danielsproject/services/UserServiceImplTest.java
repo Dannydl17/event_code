@@ -68,6 +68,11 @@ class UserServiceImplTest {
         assertThat(response.getMessage()).isNotNull();
         assertThat(response.getMessage()).isEqualTo(USER_REGISTRATION_SUCCESSFUL_MESSAGE);
     }
+    
+    @Test
+    public void testThatUsersCan_CreateEvents(){
+    
+    }
 
     private UserRegistrationRequest buildUserWithIncompleteDetails() {
         return UserRegistrationRequest.builder()

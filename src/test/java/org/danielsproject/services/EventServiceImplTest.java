@@ -32,6 +32,30 @@ public class EventServiceImplTest {
     }
 
     @Test
+    public void createNewEvent_EventIsSuccessfullyCreatedTest(){
+    
+    }
+    
+    @Test
+    public void createNewEvent_WithNameMoreThan100Characters_EventCreationFailedExceptionIsThrown(){
+    
+    }
+    @Test
+    public void createMultipleEventsWithSameName_DuplicateModelExceptionIsThrown(){
+    
+    }
+    
+    @Test
+    public void createNewEvent_TicketsCanBeReservedForCreatedEvent(){
+    
+    }
+    
+    @Test
+    public void createNewEvent_TicketsReservationIsLimitedToSpecifiedAmount_ElseExceptionIsThrown(){
+    
+    }
+    
+    @Test
     @SneakyThrows
     public void testThatEventIsCreatedTest(){
         UserRegistrationRequest request = new UserRegistrationRequest();
