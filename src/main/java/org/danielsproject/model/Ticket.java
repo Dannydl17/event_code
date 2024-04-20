@@ -14,7 +14,6 @@ import static jakarta.persistence.GenerationType.UUID;
 @NoArgsConstructor
 @Entity
 public class Ticket {
-	
 	@Id
 	@GeneratedValue(strategy = UUID)
 	private String id;

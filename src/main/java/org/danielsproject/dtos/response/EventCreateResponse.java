@@ -1,4 +1,4 @@
-package org.danielsproject.dtos.request;
+package org.danielsproject.dtos.response;
 
 import lombok.*;
 import org.danielsproject.model.Category;
@@ -6,17 +6,16 @@ import org.danielsproject.model.User;
 
 import java.time.LocalDateTime;
 
-@Setter
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventCreateRequest {
-    private Long id;
+public class EventCreateResponse {
     private String name;
     private LocalDateTime localDateTime;
     private int  availableAttendeesCount;
     private String eventDescription;
-    private User user;
     private Category category;
+    private String message;
 }

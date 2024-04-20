@@ -1,5 +1,7 @@
 package org.danielsproject.utils;
 
+import org.danielsproject.model.Category;
+
 public class Constants {
 
     public static final String EMAIL_PATTERN = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -26,5 +28,6 @@ public class Constants {
     public static final String TEMPLATE_LOAD_FAILED = "Error Loading Template";
     public static final String REG_TEMP_PATH = "/templates/registration-successful.html";
     public static final String REG_MAIL_SUBJECT = "Registration Successful";
+    public static final String EVENT_BOOKING_SUCCESSFUL = "Booking Successful";
 
 }

@@ -27,7 +27,7 @@ class UserServiceImplTest {
         assertThatThrownBy(()-> userService.createUser(buildUserWithIncompleteDetails()), "Throw For Invalidity")
                 .isInstanceOf(RegistrationFailedException.class)
                 .hasMessageContaining(BLANK_FIELD_MESSAGE)
-                .hasMessage("password: "+BLANK_FIELD_MESSAGE)
+                .hasMessage("password: " + BLANK_FIELD_MESSAGE)
                 .cause();
     }
 
@@ -69,10 +69,7 @@ class UserServiceImplTest {
         assertThat(response.getMessage()).isEqualTo(USER_REGISTRATION_SUCCESSFUL_MESSAGE);
     }
     
-    @Test
-    public void testThatUsersCan_CreateEvents(){
-    
-    }
+
 
     private UserRegistrationRequest buildUserWithIncompleteDetails() {
         return UserRegistrationRequest.builder()

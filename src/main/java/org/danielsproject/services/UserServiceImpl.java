@@ -4,8 +4,10 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
+import org.danielsproject.dtos.request.EventCreateRequest;
 import org.danielsproject.dtos.request.UserLoginRequest;
 import org.danielsproject.dtos.request.UserRegistrationRequest;
+import org.danielsproject.dtos.response.EventCreateResponse;
 import org.danielsproject.dtos.response.UserRegistrationResponse;
 import org.danielsproject.exceptions.InvalidDetailsException;
 import org.danielsproject.exceptions.RegistrationFailedException;
@@ -28,6 +30,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private Validator validator;
     private MailService mailService;
+    private EventService eventService;
 
 
     @Override
@@ -86,6 +89,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    @Override
+    public EventCreateResponse createEvent(EventCreateRequest request) {
+        return eventService.createEvent(request);
+    }
+
+    @Override
+    public User findUserByEmail(String email) {
+        User user = userRepository.findUserByEmail(email);
+        if (user != null) {
+            return user;
+        }
+        throw new UserNotFoundException("User not found");
     }
 }
 
