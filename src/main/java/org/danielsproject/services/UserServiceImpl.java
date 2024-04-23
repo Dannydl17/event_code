@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 import org.danielsproject.dtos.request.EventCreateRequest;
 import org.danielsproject.dtos.request.UserLoginRequest;
 import org.danielsproject.dtos.request.UserRegistrationRequest;
@@ -49,7 +50,6 @@ public class UserServiceImpl implements UserService {
         }catch (Exception exception) {
             throw new RegistrationFailedException(exception.getMessage(), exception);
         }
-
     }
 
     @Override
@@ -58,27 +58,17 @@ public class UserServiceImpl implements UserService {
 //        if(!userExist(userLoginRequest.getEmail())) throw new InvalidDetailsException();
 //        if(!foundUser.getPassword().equals(userLoginRequest.getPassword()))throw new InvalidDetailsException();
 //        userRepository.save(foundUser);
-       Optional<User> user = validateUserLogin(userLoginRequest.getEmail(), userLoginRequest.getPassword());
+       User user = validateUserLogin(userLoginRequest.getEmail(), userLoginRequest.getPassword());
 
     }
 
 
-    private Optional<User> validateUserLogin(String email, String password) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if (user.isPresent() && user.get().getPassword().equals(password)){
+    private User validateUserLogin(String email, String password) {
+        User user = userRepository.findUserByEmail(email);
+        if (user != null && user.getPassword().equals(password)){
             return user;
         }
         throw new InvalidDetailsException();
-    }
-
-
-    @Override
-    public Optional<User> findUser(User user) {
-        Optional<User> foundUser = userRepository.findByEmail(user.getEmail());
-        if (foundUser.isPresent()) {
-            return foundUser;
-        }
-        throw new UserNotFoundException("User not found");
     }
 
     @Override
@@ -92,6 +82,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @SneakyThrows
     public EventCreateResponse createEvent(EventCreateRequest request) {
         return eventService.createEvent(request);
     }

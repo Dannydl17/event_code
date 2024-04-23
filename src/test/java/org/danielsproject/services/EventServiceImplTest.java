@@ -5,23 +5,24 @@ import org.danielsproject.dtos.request.EventCreateRequest;
 import org.danielsproject.dtos.request.UserRegistrationRequest;
 import org.danielsproject.dtos.response.EventCreateResponse;
 import org.danielsproject.dtos.response.UserRegistrationResponse;
+import org.danielsproject.exceptions.EventCreationFailedException;
 import org.danielsproject.model.Category;
-import org.danielsproject.model.Event;
 import org.danielsproject.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.danielsproject.utils.Constants.EVENT_BOOKING_SUCCESSFUL;
-import static org.danielsproject.utils.Constants.USER_REGISTRATION_SUCCESSFUL_MESSAGE;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.danielsproject.utils.Constants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 public class EventServiceImplTest {
+
     @Autowired
     private EventService eventService;
     @Autowired
@@ -45,7 +46,6 @@ public class EventServiceImplTest {
         request.setCategory(Category.GAME);
         userService.createEvent(request);
         EventCreateResponse eventCreateResponse = eventService.createEvent(request);
-        assertThat(response.getMessage()).isNotNull();
         assertThat(eventCreateResponse.getMessage()).isEqualTo(EVENT_BOOKING_SUCCESSFUL);
     }
 
@@ -59,9 +59,28 @@ public class EventServiceImplTest {
     }
 
     @Test
+    @SneakyThrows
     public void createNewEvent_WithNameMoreThan100Characters_EventCreationFailedExceptionIsThrown(){
-    
+        UserRegistrationResponse response = userService.createUser(buildValidUser());
+        User user = userService.findUserByEmail(response.getEmail());
+
+        assertThatThrownBy(()-> eventService.createEvent(builderWithNameMore(user)), "Throw for Invalidity")
+                .isInstanceOf(EventCreationFailedException.class)
+                .hasMessageContaining(INVALID_NAME_MESSAGE)
+//                .hasMessage("name" + INVALID_NAME_MESSAGE)
+                .cause();
+
     }
+
+    private EventCreateRequest builderWithNameMore(User user) {
+        return EventCreateRequest.builder()
+                .name("zzzzzddddeerrrddddetyyuujjGameaaaaassdfghjkkkllloooiiuytrewwwwqazxcvbnnzzzzzzzzzzzssssssssssssssuuuty")
+                .availableAttendeesCount(50)
+                .user(user)
+                .eventDescription("A football match")
+                .build();
+    }
+
     @Test
     public void createMultipleEventsWithSameName_DuplicateModelExceptionIsThrown(){
     

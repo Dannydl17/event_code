@@ -16,8 +16,6 @@ public interface UserService {
 
     void login(UserLoginRequest userLoginRequest);
 
-    Optional<User> findUser(User user);
-
     void deleteAll();
 
     boolean existsByEmail(String email);

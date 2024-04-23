@@ -1,5 +1,6 @@
 package org.danielsproject.services;
 
+import jakarta.persistence.Id;
 import lombok.SneakyThrows;
 import org.danielsproject.dtos.request.UserRegistrationRequest;
 import org.danielsproject.dtos.response.UserRegistrationResponse;
@@ -37,6 +38,7 @@ class UserServiceImplTest {
         assertThatThrownBy(()->userService.createUser(buildUserWithInvalidEmail()), "Throw For Invalidity")
                 .isInstanceOf(RegistrationFailedException.class)
                 .hasMessageContaining(INVALID_EMAIL_MESSAGE)
+//                .hasMessage("email" + INVALID_EMAIL_MESSAGE)
                 .cause();
     }
 
@@ -45,6 +47,7 @@ class UserServiceImplTest {
     public void testThatUsersTryToRegisterWithInvalidPasswordFormat_RegistrationFailedExceptionIsThrown(){
         assertThatThrownBy(()->userService.createUser(buildUserWithInvalidPassword()))
                 .hasMessageContaining(INVALID_PASSWORD_MESSAGE)
+//                .hasMessage("password" + INVALID_PASSWORD_MESSAGE)
                 .isInstanceOf(RegistrationFailedException.class)
                 .cause();
     }
@@ -81,7 +84,7 @@ class UserServiceImplTest {
     private UserRegistrationRequest buildUserWithInvalidEmail() {
         return UserRegistrationRequest.builder()
                 .password("Hello World")
-                .email("email#domain.com")
+                .email("email")
                 .name("Danny_Big_Dawg")
                 .build();
     }

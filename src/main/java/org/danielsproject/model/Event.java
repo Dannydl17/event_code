@@ -2,6 +2,7 @@ package org.danielsproject.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
@@ -19,6 +20,7 @@ public class Event {
     private Long id;
     @Column(nullable = false, length = 100)
     private String name;
+    @DateTimeFormat
     private LocalDateTime localDateTime;
     private int  availableAttendeesCount;
     @Column(nullable = false, length = 500)

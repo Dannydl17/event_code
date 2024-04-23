@@ -30,4 +30,6 @@ public class Constants {
     public static final String REG_MAIL_SUBJECT = "Registration Successful";
     public static final String EVENT_BOOKING_SUCCESSFUL = "Booking Successful";
 
+    public static final String INVALID_NAME_MESSAGE = "The name should pass 100 Character";
+
 }
